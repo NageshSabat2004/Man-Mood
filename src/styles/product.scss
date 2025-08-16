@@ -1,0 +1,138 @@
+/* Product Page */
+.products-page {
+  padding: 2rem;
+  padding-top: 1rem;
+  margin: 0 auto;
+}
+
+.logo{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    margin-bottom: 2rem;
+
+    img{
+        height: 35px;
+    }
+
+    h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+
+/* Filter Bar */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  select,
+  input {
+    padding: 0.75rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    background: #fff;
+  }
+
+  select:hover,
+  input:hover {
+    border-color: #333;
+  }
+
+  input:focus,
+  select:focus {
+    border-color: #0077ff;
+    box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.2);
+  }
+
+  input {
+    flex: 1;
+    min-width: 180px;
+    font-size: 0.95rem;
+  }
+
+  select {
+    min-width: 140px;
+    cursor: pointer;
+  }
+}
+
+
+.products-grid {
+  display: grid;
+  gap: 1.5rem;
+  align-items: stretch;
+  margin-top: 40px;
+
+  /* Mobile: 2 cards per row */
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.products-grid img{
+  width: 100%;
+  border-radius: 6px;
+}
+
+/* Desktop: 4 cards per row */
+@media (min-width: 1024px) {
+  .products-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* Ensure all cards have equal height */
+.products-grid > div {
+  display: flex;
+}
+
+.product-card {
+  flex: 1;
+  border-radius: 12px;
+  background: #fff;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  }
+
+  h3{
+    font-size: 17px;
+  }
+
+  .product-id{
+    font-size: 12px;
+  }
+
+  a{
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .visit-btn {
+    padding: 10px;
+    outline: none;
+    border: none;
+    background-color: rgb(0, 0, 0);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border-top-left-radius: 10px;
+  }
+
+}
