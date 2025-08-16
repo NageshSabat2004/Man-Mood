@@ -10,8 +10,8 @@ function App() {
       <Routes>
         <Route path="/" element={<ProductList />} />
         <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="/nageshlogin" element={<AdminLogin />} />
-        <Route path="/nageshadmin" element={<AdminPanel />} />
+        <Route path="/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminPanel />} />
       </Routes>
     </BrowserRouter>
   );
