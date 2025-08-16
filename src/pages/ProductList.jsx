@@ -28,12 +28,7 @@ export default function ProductList() {
 
   return (
     <div className="products-page">
-      <div className="admin-login-btn">
-    <button onClick={() => window.location.href = "/login"}>
-      Admin Login
-    </button>
-  </div>
-  
+
       <div className="logo">
         <img src="/Group.svg"></img>
         <h1>Men Mood</h1>
