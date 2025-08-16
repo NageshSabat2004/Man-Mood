@@ -15,7 +15,11 @@ export default function ProductList() {
     async function fetchProducts() {
       try {
         const productSnapshot = await getDocs(collection(db, "products"));
-        const productsData = productSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const productsData = productSnapshot.docs.map(doc => ({
+          docId: doc.id,      // Firestore doc ID for updates/deletes
+          id: doc.data().id || doc.id, // Numeric ID if exists, else doc ID
+          ...doc.data()
+        }));
         setProducts(productsData);
 
         const uniqueCategories = [...new Set(productsData.map(p => p.category))];
@@ -37,6 +41,11 @@ export default function ProductList() {
 
   return (
     <div className="products-page">
+
+      {/* Admin Login Button */}
+      <div className="admin-login-btn">
+        <button onClick={() => window.location.href="/login"}>Admin Login</button>
+      </div>
 
       {/* Logo */}
       <div className="logo">
@@ -65,7 +74,7 @@ export default function ProductList() {
           {filteredProducts.length > 0 ? (
             filteredProducts.map((p) => (
               <motion.div
-                key={p.id}
+                key={p.docId}
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -82,6 +91,100 @@ export default function ProductList() {
       </motion.div>
     </div>
   );
+}
+
+
+
+
+
+
+
+
+
+// import { useState, useEffect } from "react";
+// import ProductCard from "../components/ProductCard";
+// import { motion, AnimatePresence } from "framer-motion";
+// import { collection, getDocs } from "firebase/firestore";
+// import { db } from "../firebase";
+// import "../styles/product.scss";
+
+// export default function ProductList() {
+//   const [products, setProducts] = useState([]);
+//   const [categories, setCategories] = useState([]);
+//   const [filterCategory, setFilterCategory] = useState("All");
+//   const [search, setSearch] = useState("");
+
+//   useEffect(() => {
+//     async function fetchProducts() {
+//       try {
+//         const productSnapshot = await getDocs(collection(db, "products"));
+//         const productsData = productSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+//         setProducts(productsData);
+
+//         const uniqueCategories = [...new Set(productsData.map(p => p.category))];
+//         setCategories(uniqueCategories.length ? uniqueCategories : [""]);
+//       } catch (error) {
+//         console.error("Error fetching products:", error);
+//       }
+//     }
+//     fetchProducts();
+//   }, []);
+
+//   const filteredProducts = products.filter((p) => {
+//     const matchesCategory = filterCategory === "All" || p.category === filterCategory;
+//     const matchesSearch =
+//       p.name.toLowerCase().includes(search.toLowerCase()) ||
+//       String(p.id).toLowerCase().includes(search.toLowerCase());
+//     return matchesCategory && matchesSearch;
+//   });
+
+//   return (
+//     <div className="products-page">
+
+//       {/* Logo */}
+//       <div className="logo">
+//         <img src="/Group.svg" alt="logo" />
+//         <h1>Men Mood</h1>
+//       </div>
+
+//       {/* Filter + Search */}
+//       <div className="filter-bar">
+//         <select value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}>
+//           <option>All</option>
+//           {categories.map((cat, i) => <option key={i}>{cat}</option>)}
+//         </select>
+
+//         <input
+//           type="text"
+//           placeholder="Search by name or ID"
+//           value={search}
+//           onChange={(e) => setSearch(e.target.value)}
+//         />
+//       </div>
+
+//       {/* Products Grid */}
+//       <motion.div className="products-grid" layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
+//         <AnimatePresence>
+//           {filteredProducts.length > 0 ? (
+//             filteredProducts.map((p) => (
+//               <motion.div
+//                 key={p.id}
+//                 layout
+//                 initial={{ opacity: 0, scale: 0.9 }}
+//                 animate={{ opacity: 1, scale: 1 }}
+//                 exit={{ opacity: 0, scale: 0.9 }}
+//                 transition={{ duration: 0.3 }}
+//               >
+//                 <ProductCard product={p} />
+//               </motion.div>
+//             ))
+//           ) : (
+//             <p className="no-data">No matching products found</p>
+//           )}
+//         </AnimatePresence>
+//       </motion.div>
+//     </div>
+//   );
 }
 
 
